@@ -1,24 +1,10 @@
-from fastapi import FastAPI, APIRouter
+from os import stat
+from fastapi import FastAPI, APIRouter, Query
 
 from typing import Optional
 
-MOVIES = [
-    {
-        "id": 1,
-        "title": "Coco",
-        "release_date": "2015-07-03",
-    },
-    {
-        "id": 2,
-        "title": "The Batman",
-        "release_date": "2022-03-10",
-    },
-    {
-        "id": 3,
-        "title": "Dune",
-        "release_date": "2021-10-23",
-    },
-]
+from app.schemas import Movie, MovieSearchResults, MovieCreate
+from app.movie_data import MOVIES
 
 # Instantiate FastAPI object
 app = FastAPI(
@@ -37,7 +23,7 @@ def root() -> dict:
     return {"msg": "Hello, World! This is MovieList"}
 
 # GET movie by id
-@api_router.get("/movie/{movie_id}", status_code=200)
+@api_router.get("/movie/{movie_id}", status_code=200, response_model=Movie)
 def fetch_movie(*, movie_id: int) -> dict:
     """
     Fetch single movie by id
@@ -49,9 +35,9 @@ def fetch_movie(*, movie_id: int) -> dict:
             return movie
 
 # Search for movie
-@api_router.get("/search", status_code=200)
+@api_router.get("/search", status_code=200, response_model=MovieSearchResults)
 def search_movies(
-    keyword: Optional[str] = None, max_results: Optional[int] = 10
+    keyword: Optional[str] = Query(None, example="Dune"), max_results: Optional[int] = 10
 ) -> dict:
     """
     Search for movie based on title
@@ -63,6 +49,23 @@ def search_movies(
     # Else return dictionary of matching results
     results = filter(lambda movie: keyword.lower() in movie["title"].lower(), MOVIES)
     return {"results": list(results)[:max_results]}
+
+# POST movie
+@api_router.post("/movie", status_code=201, response_model=Movie)
+def create_movie(*, movie_in: MovieCreate) -> dict:
+    """
+    Create new movie entry
+    """
+    new_entry_id = len(MOVIES) + 1
+    movie_entry = Movie(
+        id=new_entry_id,
+        title=movie_in.title,
+        release_date=movie_in.release_date
+    )
+    MOVIES.append(movie_entry.dict())
+
+    return movie_entry
+
 
 # Register APIRouter api_router object with FastAPI app object
 app.include_router(api_router)
