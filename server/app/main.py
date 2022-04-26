@@ -1,5 +1,5 @@
 from os import stat
-from fastapi import FastAPI, APIRouter, Query
+from fastapi import FastAPI, APIRouter, Query, HTTPException
 
 from typing import Optional
 
@@ -33,6 +33,11 @@ def fetch_movie(*, movie_id: int) -> dict:
     for movie in MOVIES:
         if movie["id"] == movie_id:
             return movie
+    
+    # Raise exception if movie not found
+    raise HTTPException(
+            status_code=404, detail=f"Movie with id {movie_id} not found"
+    )
 
 # Search for movie
 @api_router.get("/search", status_code=200, response_model=MovieSearchResults)
@@ -48,6 +53,7 @@ def search_movies(
 
     # Else return dictionary of matching results
     results = filter(lambda movie: keyword.lower() in movie["title"].lower(), MOVIES)
+    
     return {"results": list(results)[:max_results]}
 
 # POST movie
