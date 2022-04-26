@@ -1,8 +1,6 @@
-## Part 1 Local Setup
+## Local Setup
 
-1. `pip install poetry`
-2. Install dependencies `cd` into the directory where the `pyproject.toml` is located then `poetry install`
-3. Run the FastAPI server via poetry `poetry run ./run.sh`
+1. To install poetry, run in command line: `curl -sSL https://install.python-poetry.org | python3 -`
+2. To install dependencies: `cd` into directory that contains `pyproject.toml` then `poetry install`
+3. To run the FastAPI server: `poetry run ./run.sh`
 4. Open http://localhost:8001/
-
-If you get stuck, checkout the [troubleshooting readme](../troubleshooting/README.md)
