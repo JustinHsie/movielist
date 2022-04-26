@@ -4,3 +4,5 @@
 2. To install dependencies: `cd` into directory that contains `pyproject.toml` then `poetry install`
 3. To run the FastAPI server: `poetry run ./run.sh`
 4. Open http://localhost:8001/
+
+Note: If using VSCode, it might not recognize poetry's venv, ie installed packages can't be imported. Run `poetry show -v` and copy path into VSCode's Python: Select Interpreter
