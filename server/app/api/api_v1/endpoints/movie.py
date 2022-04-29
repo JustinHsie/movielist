@@ -1,12 +1,16 @@
+import asyncio
+from typing import Any, Optional
+
+import httpx
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
-from typing import Any, Optional
 
 from app import crud
 from app.api import deps
 from app.schemas.movie import Movie, MovieCreate, MovieSearchResults
 
 router = APIRouter()
+RECIPE_SUBREDDITS = ["recipes", "easyrecipes", "TopSecretRecipes"]
 
 
 @router.get("/{movie_id}", status_code=200, response_model=Movie)
@@ -57,3 +61,30 @@ def create_movie(
     movie = crud.movie.create(db=db, obj_in=movie_in)
 
     return movie
+
+
+async def get_reddit_top(subreddit: str) -> list:
+    """
+    Return top reddit posts
+    """
+    async with httpx.AsyncClient() as client:
+        response = await client.get(
+            f"https://www.reddit.com/r/{subreddit}/top.json?sort=top&t=day&limit=5",
+            headers={"User-agent": "recipe bot 0.1"},
+        )
+
+    subreddit_recipes = response.json()
+    subreddit_data = []
+    for entry in subreddit_recipes["data"]["children"]:
+        score = entry["data"]["score"]
+        title = entry["data"]["title"]
+        link = entry["data"]["url"]
+        subreddit_data.append(f"{str(score)}: {title} ({link})")
+    return subreddit_data
+
+@router.get("/ideas/async")
+async def fetch_ideas_async() -> dict:
+    results = await asyncio.gather(
+        *[get_reddit_top(subreddit=subreddit) for subreddit in RECIPE_SUBREDDITS]
+    )
+    return dict(zip(RECIPE_SUBREDDITS, results))
