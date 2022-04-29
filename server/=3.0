@@ -1,0 +1,50 @@
+
+  Stack trace:
+
+  11  ~/Library/Application Support/pypoetry/venv/lib/python3.9/site-packages/clikit/console_application.py:123 in run
+      io = io_factory(
+
+  10  ~/Library/Application Support/pypoetry/venv/lib/python3.9/site-packages/poetry/console/config/application_config.py:221 in create_io
+      resolved_command = application.resolve_command(args)
+
+   9  ~/Library/Application Support/pypoetry/venv/lib/python3.9/site-packages/clikit/console_application.py:110 in resolve_command
+      return self._config.command_resolver.resolve(args, self)
+
+   8  ~/Library/Application Support/pypoetry/venv/lib/python3.9/site-packages/clikit/resolver/default_resolver.py:34 in resolve
+      return self.create_resolved_command(result)
+
+   7  ~/Library/Application Support/pypoetry/venv/lib/python3.9/site-packages/clikit/resolver/default_resolver.py:166 in create_resolved_command
+      if not result.is_parsable():
+
+   6  ~/Library/Application Support/pypoetry/venv/lib/python3.9/site-packages/clikit/resolver/resolve_result.py:43 in is_parsable
+      self._parse()
+
+   5  ~/Library/Application Support/pypoetry/venv/lib/python3.9/site-packages/clikit/resolver/resolve_result.py:49 in _parse
+      self._parsed_args = self._command.parse(self._raw_args)
+
+   4  ~/Library/Application Support/pypoetry/venv/lib/python3.9/site-packages/clikit/api/command/command.py:113 in parse
+      return self._config.args_parser.parse(args, self._args_format, lenient)
+
+   3  ~/Library/Application Support/pypoetry/venv/lib/python3.9/site-packages/clikit/args/default_args_parser.py:53 in parse
+      self._parse(args, _fmt, lenient)
+
+   2  ~/Library/Application Support/pypoetry/venv/lib/python3.9/site-packages/clikit/args/default_args_parser.py:101 in _parse
+      self._parse_long_option(token, tokens, fmt, lenient)
+
+   1  ~/Library/Application Support/pypoetry/venv/lib/python3.9/site-packages/clikit/args/default_args_parser.py:247 in _parse_long_option
+      self._add_long_option(name, None, tokens, fmt, lenient)
+
+  NoSuchOptionException
+
+  The "--upgrade" option does not exist.
+
+  at ~/Library/Application Support/pypoetry/venv/lib/python3.9/site-packages/clikit/args/default_args_parser.py:300 in _add_long_option
+      296│     def _add_long_option(
+      297│         self, name, value, tokens, fmt, lenient
+      298│     ):  # type: (str, Optional[str], List[str], ArgsFormat, bool) -> None
+      299│         if not fmt.has_option(name):
+    → 300│             raise NoSuchOptionException(name)
+      301│ 
+      302│         option = fmt.get_option(name)
+      303│ 
+      304│         if value is False:

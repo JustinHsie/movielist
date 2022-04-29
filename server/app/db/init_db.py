@@ -3,11 +3,27 @@ from sqlalchemy.orm import Session
 
 from app import crud, schemas
 from app.db import base  # noqa: F401
-from app.movie_data import MOVIES
+from app.core.config import settings
 
 logger = logging.getLogger(__name__)
 
-FIRST_SUPERUSER = "admin@movieapi.com"
+MOVIES = [
+    {
+        "id": 1,
+        "title": "Coco",
+        "release_date": "2015-07-03",
+    },
+    {
+        "id": 2,
+        "title": "The Batman",
+        "release_date": "2022-03-10",
+    },
+    {
+        "id": 3,
+        "title": "Dune",
+        "release_date": "2021-10-23",
+    },
+]
 
 # make sure all SQL Alchemy models are imported (app.db.base) before initializing DB
 # otherwise, SQL Alchemy might fail to initialize relationships properly
@@ -19,19 +35,20 @@ def init_db(db: Session) -> None:
     # But if you don't want to use migrations, create
     # the tables un-commenting the next line
     # Base.metadata.create_all(bind=engine)
-    if FIRST_SUPERUSER:
-        user = crud.user.get_by_email(db, email=FIRST_SUPERUSER)
+    if settings.FIRST_SUPERUSER:
+        user = crud.user.get_by_email(db, email=settings.FIRST_SUPERUSER)
         if not user:
             user_in = schemas.UserCreate(
                 full_name="Initial Super User",
-                email=FIRST_SUPERUSER,
+                email=settings.FIRST_SUPERUSER,
                 is_superuser=True,
+                password=settings.FIRST_SUPERUSER_PW,
             )
             user = crud.user.create(db, obj_in=user_in)  # noqa: F841
         else:
             logger.warning(
                 "Skipping creating superuser. User with email "
-                f"{FIRST_SUPERUSER} already exists. "
+                f"{settings.FIRST_SUPERUSER} already exists. "
             )
         if not user.movies:
             for movie in MOVIES:

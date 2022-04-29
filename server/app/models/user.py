@@ -1,4 +1,3 @@
-from codecs import backslashreplace_errors
 from sqlalchemy import Integer, String, Column, Boolean
 from sqlalchemy.orm import relationship
 
@@ -17,3 +16,5 @@ class User(Base):
         back_populates="submitter",
         uselist=True,
     )
+
+    hashed_password = Column(String, nullable=False)
