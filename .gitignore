@@ -103,6 +103,7 @@ celerybeat.pid
 
 # Environments
 .env
+!*/frontend/.env
 .venv
 env/
 venv/
@@ -127,3 +128,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+.idea/
+recipe_client
+example.db
+
+# DS_Store
+.DS_Store
