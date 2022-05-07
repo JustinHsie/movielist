@@ -1,0 +1,79 @@
+.new-card{
+  height: 410px;
+  transition: bottom 0.2s!important;
+  width: 330px;
+  border-radius: 25px;
+  box-shadow: none!important;
+  bottom: 0px;
+}
+
+.new-card:hover{
+  bottom: 10px;
+}
+
+.images{
+  height: 140px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 25px 25px 0px 0px;
+}
+
+.card-container{
+  padding: 28px 34px 0px 34px!important;
+  text-align: left;
+}
+
+.card-info-container{
+  height: 207px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-title{
+  font-size: 22px!important;
+  font-weight: 700;
+  line-height: 25px!important;
+  font-family: 'Poppins',sans-serif;
+  color: black!important;
+  margin-bottom: 16px;
+  letter-spacing: -0.2px;
+}
+
+.card-description{
+  margin: 0px;
+  color: black;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+}
+
+.read-more{
+  text-align: left;
+  line-height: 27px;
+  color: black;
+  font-weight: 400;
+  margin-bottom: 0px;
+  font-size: 18px;
+}
+
+/* for tablets */
+@media screen and (max-width:1060px) {
+  .new-card{
+      width: 310px;
+      height: 410px;
+  }
+}
+
+/* for large phones*/
+@media screen and (max-width:744px) {
+  .new-card{
+      justify-self: center;
+  }
+
+  .new-card:hover{
+      bottom: 0px;
+  }
+}

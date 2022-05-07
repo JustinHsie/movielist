@@ -1,0 +1,79 @@
+#movies{
+  background-color: #F2F3F6;
+  min-height: 839px;
+  width: 100%;
+}
+
+#movie-header, #movie-title{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  display: inline;
+  font-size: 43px;
+}
+
+#movie-header{
+  color: #49B6DD;
+}
+
+#movie-title{
+  color: black;
+}
+
+#movie-title-container{
+  margin-bottom: 30px;
+}
+
+#movie-container{
+  padding-top: 138px;
+  max-width: 1040px;
+  margin:auto;
+}
+
+#grid-container{
+  padding-bottom: 158px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 25px;
+  row-gap: 33px;
+}
+
+.links:hover{
+  color: #656565;
+}
+
+/* for tablets */
+@media screen and (max-width:1060px) {
+  #movie-container{
+      padding-top: 78px;
+      width: 644px;
+  }
+  
+  #grid-container{
+      padding-bottom: 86px;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 24px;
+      row-gap: 36px;
+  }
+}
+
+/* for large phones*/
+@media screen and (max-width:744px) {
+  #grid-container{
+      grid-template-columns: repeat(1, 1fr);
+      padding-bottom: 52px;
+  }
+
+  #movie-container{
+      width: 100%;
+      padding-top: 44px;
+  }
+  
+  #movie-title-container{
+      margin:0px auto 35px auto;
+      width: fit-content;
+  }
+
+  #movie-header, #movie-title{
+      font-size: max(5.75vw,29px);
+  }
+}
