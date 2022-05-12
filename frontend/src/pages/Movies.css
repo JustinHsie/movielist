@@ -19,7 +19,12 @@
   color: black;
 }
 
-#movie-title-container{
+#movie-search-container{
+  float: right;
+  padding-top: 7px;
+}
+
+#movie-title-container, #movie-search-container{
   margin-bottom: 30px;
 }
 
@@ -71,6 +76,11 @@
   #movie-title-container{
       margin:0px auto 35px auto;
       width: fit-content;
+  }
+
+  #movie-search-container{
+    padding-top:20px;
+    float: none
   }
 
   #movie-header, #movie-title{
