@@ -17,7 +17,7 @@ origins = [
   "localhost:3000"
 ]
 
-# Placeholder db
+# Mock db
 movies = [
     {
       "id": 'the-batman',
@@ -86,8 +86,8 @@ async def search_movie(query: str) -> dict:
   # Make API call to TheMovieDB
   async with httpx.AsyncClient() as client:
     res = await client.get(f'https://api.themoviedb.org/3/search/movie?api_key={moviedb_api_key}&language=en-US&query={query}&page=1&include_adult=false')
-    print(res.json())
-  return {"query": query}
+  
+  return {"query": res.json()}
 
 # Post movie
 @router.post("/movies", status_code=201)

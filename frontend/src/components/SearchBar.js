@@ -16,16 +16,10 @@ export default function SearchBar(props) {
     e.preventDefault()
 
     // Get backend to make external API request
-    // const res = await axios.get(`http://localhost:8000/search/?query=${query}`)
-    let res = [
-      {
-      "id" : '75',
-      "title": 'Dune',
-      "director": 'Denis Villaneuve'
-      }
-    ]
+    const res = await axios.get(`http://localhost:8000/search/?query=${query}`)
+    
     // Set results state
-    props.setResults(res)
+    props.setResults(res.data.query.results)
     navigate("/search");
 
   }

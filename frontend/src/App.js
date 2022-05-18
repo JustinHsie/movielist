@@ -5,7 +5,7 @@ import Search from './pages/Search';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 export default function App() {
-  
+
   // Movie and search results state
   const[movies, setMovies] = useState([])
   const [results, setResults] = useState([])
@@ -26,6 +26,7 @@ export default function App() {
           <Route path="/search" element={
             <Search 
               results={results}
+              setResults={setResults}
             />
           }/>
         </Routes>

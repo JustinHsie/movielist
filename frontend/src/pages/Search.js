@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './MyMovies.css';
 import Card from '../components/Card';
 import SearchBar from '../components/SearchBar';
@@ -16,7 +16,7 @@ export default function Search(props) {
           <div id="movie-title-container">
             <h1 id="movie-header"><a href="/">Results</a></h1>
             <div id="movie-search-container">
-              <SearchBar />
+              <SearchBar setResults={props.setResults}/>
             </div>
             <div>
               <Filter/>
@@ -28,7 +28,6 @@ export default function Search(props) {
                 return <Card 
                   id={movie.id}
                   title={movie.title}
-                  director={movie.director}
                 />
               }
             )}
