@@ -1,20 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import './Movies.css';
+import './MyMovies.css';
 import Card from '../components/Card';
-import AddMovie from '../components/AddMovie';
+import SearchBar from '../components/SearchBar';
+import Filter from '../components/Filter';
 const axios = require('axios').default;
 
-const MoviesContext = React.createContext({
-  movies: [], fetchMovies: () => {}
-})
 
-export default function Movies() {
-
-  const[movies, setMovies] = useState([])
-
-  const fetchMovies = async() => {
+export default function MyMovies(props) {
+  
+  // Fetch movies from backend and set movies state
+  const fetchMovies = async () => {
     const movies = await axios.get('http://localhost:8000/movies')
-    setMovies(movies.data.data)
+    props.setMovies(movies.data.data)
   }
 
   useEffect(() => {
@@ -22,15 +19,19 @@ export default function Movies() {
   }, [])
 
   return(
-    <MoviesContext.Provider value={[movies, fetchMovies]}>
       <div id="movies">
         <div id="movie-container">
           <div id="movie-title-container">
-            <h1 id="movie-header">Movie List</h1>
-          <AddMovie context={MoviesContext}/>
+            <h1 id="movie-header"><a href="/">Movie List</a></h1>
+            <div id="movie-search-container">
+              <SearchBar setResults={props.setResults}/>
+            </div>
+            <div>
+              <Filter/>
+            </div>
           </div>
           <div id="grid-container">
-            {movies.map(
+            {props.movies.map(
               movie => {
                 return <Card 
                   id={movie.id}
@@ -42,6 +43,5 @@ export default function Movies() {
           </div>
         </div>
       </div>
-    </MoviesContext.Provider>
   )
 }

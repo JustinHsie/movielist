@@ -1,14 +1,35 @@
+import React, {useState} from 'react';
 import './App.css';
-import Movies from './pages/Movies';
+import MyMovies from './pages/MyMovies';
+import Search from './pages/Search';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-function App() {
+export default function App() {
+  
+  // Movie and search results state
+  const[movies, setMovies] = useState([])
+  const [results, setResults] = useState([])
+
   return (
     <div className="App">
       <header className="App-header">
       </header>
-        <Movies/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={
+            <MyMovies 
+              movies={movies} 
+              setMovies={setMovies}
+              setResults={setResults}
+            />
+          }/>
+          <Route path="/search" element={
+            <Search 
+              results={results}
+            />
+          }/>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
-
-export default App;

@@ -11,8 +11,9 @@
   font-size: 43px;
 }
 
-#movie-header{
+#movie-header a{
   color: #9a4de7;
+  text-decoration: none;
 }
 
 #movie-title{
@@ -80,7 +81,9 @@
 
   #movie-search-container{
     padding-top:20px;
-    float: none
+    margin:0px auto 35px auto;
+    float: none;
+    width: 15em;
   }
 
   #movie-header, #movie-title{
