@@ -1,13 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './CardResult.css';
 import UIkit from 'uikit';
-import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'
 
 const axios = require('axios').default;
 
 export default function CardResult(props){
     let navigate = useNavigate();
+
+    const [rating, setRating] = useState(5);
+
+    const handleChange = e => {
+        setRating(e.target.value)
+    }
 
     const handleOnClick = async () => {
         let movie = {
@@ -37,8 +42,21 @@ export default function CardResult(props){
                 <div className="card-info-container">
                     <div className="card-info">
                         <h3 className="uk-card-title card-title">{props.title}</h3>
-                        <p className="card-description">{props.director}</p>
+                        <p className="card-description">Rating</p>
+                        <p className="card-description">{rating} / 10</p>
                     </div>
+                    <form>
+                        <div className="uk-margin">
+                             <input 
+                                className="uk-range" 
+                                type="range" 
+                                value={rating} 
+                                onChange={handleChange}
+                                min="0" 
+                                max="10" 
+                                step="1"/>
+                        </div>
+                    </form>
                     <div className="card-footer">
                         <button onClick={handleOnClick} className="uk-button uk-button-default new-button">Add</button>
                     </div>
