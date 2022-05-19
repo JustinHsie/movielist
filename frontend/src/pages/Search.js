@@ -1,15 +1,11 @@
 import React from 'react';
 import './MyMovies.css';
-import Card from '../components/Card';
+import CardResult from '../components/CardResult';
 import SearchBar from '../components/SearchBar';
 import Filter from '../components/Filter';
-const axios = require('axios').default;
 
 
 export default function Search(props) {
-
-  console.log(props.results)
-
   return(
       <div id="movies">
         <div id="movie-container">
@@ -25,7 +21,7 @@ export default function Search(props) {
           <div id="grid-container">
             {props.results.map(
               movie => {
-                return <Card 
+                return <CardResult 
                   id={movie.id}
                   title={movie.title}
                 />
