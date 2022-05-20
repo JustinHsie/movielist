@@ -42,7 +42,7 @@ export default function Card(props){
 
         // Reset disabled button after updating rating
         setDisabled(true);
-        
+
         navigate("/");
     }
     return(

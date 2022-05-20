@@ -6,6 +6,8 @@ import Filter from '../components/Filter';
 
 
 export default function Search(props) {
+  let imageUrl = 'https://image.tmdb.org/t/p/w500/'
+
   return(
       <div id="movies">
         <div id="movie-container">
@@ -23,6 +25,7 @@ export default function Search(props) {
               movie => {
                 return <CardResult 
                   id={movie.id}
+                  image={imageUrl + movie.poster_path}
                   title={movie.title}
                 />
               }

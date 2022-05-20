@@ -16,35 +16,35 @@ export default function SearchBar(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // let res = [
+    //   {
+    //     "id": 75,
+    //     "title": 'Dune1'
+    //   },
+    //   {
+    //     "id": 76,
+    //     "title": 'Dune2'
+    //   },
+    //   {
+    //     "id": 77,
+    //     "title": 'Dune3'
+    //   },
+    //   {
+    //     "id": 78,
+    //     "title": 'Dune4'
+    //   },
+    //   {
+    //     "id": 79,
+    //     "title": 'Dune5'
+    //   }
+    // ]
+    // props.setResults(res);
+
     // GET request backend to make external API request
-    //const res = await axios.get(`http://localhost:8000/search/?query=${query}`)
-    
-    let res = [
-      {
-        "id": 75,
-        "title": 'Dune1'
-      },
-      {
-        "id": 76,
-        "title": 'Dune2'
-      },
-      {
-        "id": 77,
-        "title": 'Dune3'
-      },
-      {
-        "id": 78,
-        "title": 'Dune4'
-      },
-      {
-        "id": 79,
-        "title": 'Dune5'
-      }
-    ]
-    props.setResults(res);
+    // const res = await axios.get(`http://localhost:8000/search/?query=${query}`)
 
     // Set results state
-    //props.setResults(res.data.query.results)
+    // props.setResults(res.data.query.results)
     navigate("/search");
 
   }
