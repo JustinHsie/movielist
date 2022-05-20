@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './CardResult.css';
 import UIkit from 'uikit';
 import { useNavigate } from 'react-router-dom'
@@ -8,20 +8,21 @@ const axios = require('axios').default;
 export default function CardResult(props){
     let navigate = useNavigate();
 
-    const [rating, setRating] = useState(5);
+    const [rating, setRating] = useState(0);
 
     const handleChange = e => {
-        setRating(e.target.value)
+        setRating(e.target.value);
     }
 
     const handleOnClick = async () => {
         let movie = {
             "id": props.id,
-            "title": props.title
+            "title": props.title,
+            "rating": rating
         }
 
         // POST movie to backend
-        const res = await axios.post('http://localhost:8000/movies', movie)
+        const res = await axios.post('http://localhost:8000/movies', movie);
 
         // Display success notification
         UIkit.notification({
@@ -31,7 +32,7 @@ export default function CardResult(props){
             timeout: 3000
         });
 
-        navigate("/")
+        navigate("/");
     }
 
     return(

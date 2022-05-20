@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './MyMovies.css';
 import Card from '../components/Card';
 import SearchBar from '../components/SearchBar';
@@ -7,16 +7,18 @@ const axios = require('axios').default;
 
 
 export default function MyMovies(props) {
-  
+  // Tracks if a movie has been updated
+  const [updated, setUpdate] = useState();
+
   // Fetch movies from backend and set movies state
   const fetchMovies = async () => {
-    const movies = await axios.get('http://localhost:8000/movies')
-    props.setMovies(movies.data.data)
+    const movies = await axios.get('http://localhost:8000/movies');
+    props.setMovies(movies.data.data);
   }
 
   useEffect(() => {
-    fetchMovies()
-  }, [])
+    fetchMovies();
+  }, [updated])
 
   return(
       <div id="movies">
@@ -36,7 +38,8 @@ export default function MyMovies(props) {
                 return <Card 
                   id={movie.id}
                   title={movie.title}
-                  director={movie.director}
+                  rating={movie.rating}
+                  setUpdate={setUpdate}
                 />
               }
             )}

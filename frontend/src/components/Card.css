@@ -59,6 +59,17 @@
   font-size: 18px;
 }
 
+.new-button{
+  font-size: 17px!important;
+  font-weight: 700!important;
+  line-height: 25px!important;
+  text-transform: none!important;
+  font-family: 'Poppins',sans-serif!important;
+  padding: 6px 30px!important;
+  border-radius: 25px!important;
+  float: right;
+}
+
 /* for tablets */
 @media screen and (max-width:1060px) {
   .new-card{

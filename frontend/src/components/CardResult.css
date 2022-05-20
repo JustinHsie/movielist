@@ -65,8 +65,9 @@
   line-height: 25px!important;
   text-transform: none!important;
   font-family: 'Poppins',sans-serif!important;
-  padding: 4px 30px!important;
+  padding: 6px 30px!important;
   border-radius: 25px!important;
+  float: right;
 }
 
 /* for tablets */

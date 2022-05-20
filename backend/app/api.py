@@ -20,34 +20,34 @@ origins = [
 # Mock db
 movies = [
     {
-      "id": 'the-batman',
+      "id": 1,
       "title": 'The Batman',
-      "director": 'Matt Reeves'
+      "rating": 8
     },
     {
-      "id": 'spirited-away',
+      "id": 2,
       "title": 'Spirited Away',
-      "director": 'Hayao Miyazaki'
+      "rating": 10
     },
     {
-      "id": 'the-batman',
+      "id": 3,
       "title": 'The Batman',
-      "director": 'Matt Reeves'
+      "rating": 8
     },
     {
-      "id": 'the-batman',
+      "id": 4,
       "title": 'The Batman',
-      "director": 'Matt Reeves'
+      "rating": 8
     },
     {
-      "id": 'the-batman',
+      "id": 5,
       "title": 'The Batman',
-      "director": 'Matt Reeves'
+      "rating": 8
     },
     {
-      "id": 'the-batman',
+      "id": 6,
       "title": 'The Batman',
-      "director": 'Matt Reeves'
+      "rating": 8
     }
   ]
 
@@ -59,6 +59,10 @@ app.add_middleware(
   allow_methods=["*"],
   allow_headers=["*"]
 )
+
+"""
+Routes
+"""
 
 # Root get
 @router.get("/", status_code=200)
@@ -97,6 +101,19 @@ async def add_movie(movie: dict) -> dict:
   """
   movies.append(movie)
   return {"data": {"Movie Added"}}
+
+# Put movie
+@router.put("/movies", status_code=201)
+async def update_movie(movie: dict) -> dict:
+  """
+  PUT movie
+  """
+  for dbMovie in movies:
+    if dbMovie['id'] == movie['id']:
+      # Update movie rating
+      dbMovie['rating'] = movie['rating']
+      break
+  return {"data": {"Movie updated"}}
 
 
 app.include_router(router)
