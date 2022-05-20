@@ -23,7 +23,6 @@ export default function Card(props){
     const handleOnClick = async () => {
         let movie = {
             "id": props.id,
-            "title": props.title,
             "rating": rating
         }
 
@@ -47,7 +46,7 @@ export default function Card(props){
     }
     return(
         <div className="uk-card uk-card-default new-card" id={props.id} key={props.id}>
-            <div className="uk-card-media-top images" style={{backgroundImage: `url(${props.background})`}}>
+            <div className="uk-card-media-top images" style={{backgroundImage: `url(${props.image})`}}>
             </div>
             <div className="uk-card-body card-container">
                 <div className="card-info-container">

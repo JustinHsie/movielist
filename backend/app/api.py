@@ -28,26 +28,6 @@ movies = [
       "id": 2,
       "title": 'Spirited Away',
       "rating": 10
-    },
-    {
-      "id": 3,
-      "title": 'The Batman',
-      "rating": 8
-    },
-    {
-      "id": 4,
-      "title": 'The Batman',
-      "rating": 8
-    },
-    {
-      "id": 5,
-      "title": 'The Batman',
-      "rating": 8
-    },
-    {
-      "id": 6,
-      "title": 'The Batman',
-      "rating": 8
     }
   ]
 

@@ -17,6 +17,7 @@ export default function CardResult(props){
     const handleOnClick = async () => {
         let movie = {
             "id": props.id,
+            "image": props.image,
             "title": props.title,
             "rating": rating
         }

@@ -37,6 +37,7 @@ export default function MyMovies(props) {
               movie => {
                 return <Card 
                   id={movie.id}
+                  image={movie.image}
                   title={movie.title}
                   rating={movie.rating}
                   setUpdate={setUpdate}
