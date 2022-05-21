@@ -11,6 +11,14 @@
   font-size: 43px;
 }
 
+#movie-subheader{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  display: inline;
+  font-size: 23px;
+  color: #787878;
+}
+
 #movie-header a{
   color: #9a4de7;
   text-decoration: none;

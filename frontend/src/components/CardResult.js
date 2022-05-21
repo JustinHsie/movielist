@@ -6,20 +6,28 @@ import { useNavigate } from 'react-router-dom'
 const axios = require('axios').default;
 
 export default function CardResult(props){
+    // Programmatic navigation
     let navigate = useNavigate();
 
+    // State
     const [rating, setRating] = useState(0);
 
-    const handleChange = e => {
+    // Rating slider change
+    const handleSliderChange = e => {
         setRating(e.target.value);
     }
 
-    const handleOnClick = async () => {
+    // Add movie
+    const handleAddMovie = async () => {
+        // Get current datetime
+        let datetime = Date.now();
+
         let movie = {
             "id": props.id,
             "image": props.image,
             "title": props.title,
-            "rating": rating
+            "rating": rating,
+            "datetime": datetime
         }
 
         // POST movie to backend
@@ -53,14 +61,18 @@ export default function CardResult(props){
                                 className="uk-range" 
                                 type="range" 
                                 value={rating} 
-                                onChange={handleChange}
+                                onChange={handleSliderChange}
                                 min="0" 
                                 max="10" 
                                 step="1"/>
                         </div>
                     </form>
                     <div className="card-footer">
-                        <button onClick={handleOnClick} className="uk-button uk-button-default new-button">Add</button>
+                        <button 
+                            onClick={handleAddMovie} 
+                            className="uk-button uk-button-default new-button">
+                        Add
+                        </button>
                     </div>
                 </div>
             </div>

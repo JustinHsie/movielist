@@ -22,12 +22,14 @@ movies = [
     {
       "id": 1,
       "title": 'The Batman',
-      "rating": 8
+      "rating": 8,
+      "datetime": 0
     },
     {
       "id": 2,
       "title": 'Spirited Away',
-      "rating": 10
+      "rating": 10,
+      "datetime": 0
     }
   ]
 
@@ -94,6 +96,17 @@ async def update_movie(movie: dict) -> dict:
       dbMovie['rating'] = movie['rating']
       break
   return {"data": {"Movie updated"}}
+
+# Delete movie
+@router.delete("/movies", status_code=200)
+async def delete_movie(movie: dict) -> dict:
+  """
+  DELETE movie
+  """
+  # Delete movie
+  movies[:] = [dbMovie for dbMovie in movies if dbMovie['id'] != movie['id']]
+  return {"data": {"Movie deleted"}}
+
 
 
 app.include_router(router)

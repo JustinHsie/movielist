@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './MyMovies.css';
 import Card from '../components/Card';
 import SearchBar from '../components/SearchBar';
-import Filter from '../components/Filter';
+import Sort from '../components/Sort';
 const axios = require('axios').default;
 
 
@@ -16,6 +16,7 @@ export default function MyMovies(props) {
     props.setMovies(movies.data.data);
   }
 
+  // Re-renders and fetches movies on movie card update
   useEffect(() => {
     fetchMovies();
   }, [updated])
@@ -29,13 +30,14 @@ export default function MyMovies(props) {
               <SearchBar setResults={props.setResults}/>
             </div>
             <div>
-              <Filter/>
+              <Sort/>
             </div>
           </div>
           <div id="grid-container">
             {props.movies.map(
               movie => {
                 return <Card 
+                  key={movie.id}
                   id={movie.id}
                   image={movie.image}
                   title={movie.title}

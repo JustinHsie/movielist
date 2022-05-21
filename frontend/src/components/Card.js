@@ -6,21 +6,25 @@ import { useNavigate } from 'react-router-dom'
 const axios = require('axios').default;
 
 export default function Card(props){
+    // Programmatic navigation
     let navigate = useNavigate();
 
+    // State
     const [rating, setRating] = useState(props.rating);
     const [disabled, setDisabled] = useState(true);
 
+    // Slider state change
     const handleChange = e => {
         setRating(e.target.value);
-        if (e.target.value == props.rating) {
+        if (e.target.value === props.rating) {
             setDisabled(true);
         } else {
             setDisabled(false);
         }
     }
 
-    const handleOnClick = async () => {
+    // Save movie update
+    const handleSave = async () => {
         let movie = {
             "id": props.id,
             "rating": rating
@@ -42,8 +46,28 @@ export default function Card(props){
         // Reset disabled button after updating rating
         setDisabled(true);
 
-        navigate("/");
+        
     }
+
+    // Delete movie
+    const handleDelete = async () => {
+        let movie = {
+            "id": props.id
+        }
+
+        const res = await axios.delete('http://localhost:8000/movies', { data: movie });
+        // Change state so MyMovies re-renders and re-fetches movies
+        props.setUpdate(res);
+
+        // Display delete notification
+        UIkit.notification({
+            message: 'Movie Deleted',
+            status: 'success',
+            pos: 'top-center',
+            timeout: 3000
+        });
+    }
+
     return(
         <div className="uk-card uk-card-default new-card" id={props.id} key={props.id}>
             <div className="uk-card-media-top images" style={{backgroundImage: `url(${props.image})`}}>
@@ -69,13 +93,16 @@ export default function Card(props){
                     </form>
                     <div className="card-footer">
                         <button 
-                            onClick={handleOnClick} 
+                            onClick={handleSave} 
                             className="uk-button uk-button-default new-button"
-                            disabled={disabled}
-                        >
+                            disabled={disabled}>
                         Save
                         </button>
-                        <button href="" className="uk-icon-button" uk-icon="trash"></button>
+                        <button 
+                            onClick={handleDelete}
+                            className="uk-icon-button" 
+                            uk-icon="trash">
+                        </button>
                     </div>
                 </div>
             </div>

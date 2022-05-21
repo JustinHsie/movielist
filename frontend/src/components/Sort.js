@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Filter() {
+export default function Sort() {
   return(
     <ul className="uk-subnav uk-subnav-pill" uk-margin="true">
       <li>
