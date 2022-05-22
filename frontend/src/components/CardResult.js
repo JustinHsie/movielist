@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './CardResult.css';
+import './Card.css';
 import UIkit from 'uikit';
 import { useNavigate } from 'react-router-dom'
 

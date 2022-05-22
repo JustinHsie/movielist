@@ -1,18 +1,19 @@
 .new-card{
-  height: 500px;
+  height: 800px;
   transition: bottom 0.2s!important;
   width: 330px;
   border-radius: 25px;
   box-shadow: none!important;
   bottom: 0px;
+  transition: all 185ms ease-in-out!important;
 }
 
 .new-card:hover{
-  bottom: 10px;
+  transform: scale(1.03)
 }
 
 .images{
-  height: 240px;
+  height: 540px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -74,10 +75,15 @@
 @media screen and (max-width:1060px) {
   .new-card{
       width: 310px;
-      height: 410px;
+      height: 510px;
   }
+
+  .new-card:hover{
+    transform: scale(1)
+}
+  
   .images{
-    height: 140px;
+    height: 240px;
   }
 }
 
@@ -88,6 +94,6 @@
   }
 
   .new-card:hover{
-      bottom: 0px;
+      transform: scale(1)
   }
 }
