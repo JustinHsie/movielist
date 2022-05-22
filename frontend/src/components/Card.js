@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import './Card.css';
 import UIkit from 'uikit';
-import { useNavigate } from 'react-router-dom'
 
 const axios = require('axios').default;
 
 export default function Card(props){
-    // Programmatic navigation
-    let navigate = useNavigate();
 
     // State
     const [rating, setRating] = useState(props.rating);

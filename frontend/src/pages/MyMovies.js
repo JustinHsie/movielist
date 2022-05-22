@@ -3,8 +3,12 @@ import './MyMovies.css';
 import Card from '../components/Card';
 import SearchBar from '../components/SearchBar';
 import Sort from '../components/Sort';
-const axios = require('axios').default;
+import { handleSortRatingHighest, 
+         handleSortRatingLowest, 
+         handleSortNewest, 
+         handleSortOldest } from '../functions';
 
+const axios = require('axios').default;
 
 export default function MyMovies(props) {
   // Tracks if a movie has been updated
@@ -30,7 +34,12 @@ export default function MyMovies(props) {
               <SearchBar setResults={props.setResults}/>
             </div>
             <div>
-              <Sort/>
+              <Sort
+                onClickRatingHighest={() => {handleSortRatingHighest(props)}}
+                onClickRatingLowest={() => {handleSortRatingLowest(props)}}
+                onClickNewest={() => {handleSortNewest(props)}}
+                onClickOldest={() => {handleSortOldest(props)}}
+              />
             </div>
           </div>
           <div id="grid-container">
