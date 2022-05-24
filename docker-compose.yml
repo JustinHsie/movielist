@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  web:
+    build: ./backend
+    command: poetry run python app/main.py
+    volumes:
+      - ./backend/app:/app
+    ports:
+      - 8002:8000
