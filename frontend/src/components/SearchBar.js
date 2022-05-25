@@ -41,7 +41,7 @@ export default function SearchBar(props) {
     // props.setResults(res);
 
     // GET request backend to make external API request
-    const res = await axios.get(`http://localhost:8000/search/?query=${query}`)
+    const res = await axios.get(`http://localhost:8001/search/?query=${query}`)
 
     // Set results state
     props.setResults(res.data.query.results)

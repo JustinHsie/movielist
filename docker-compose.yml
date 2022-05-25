@@ -2,9 +2,12 @@ version: '3'
 
 services:
   web:
-    build: ./backend
-    command: poetry run python app/main.py
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
     volumes:
-      - ./backend/app:/app
+      - ./backend/:/app
     ports:
-      - 8002:8000
+      - '8001:8001'
+    environment:
+      - BACKEND_CORS_ORIGINS=["http://localhost:3000","http://localhost:8000"]

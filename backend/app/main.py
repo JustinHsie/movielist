@@ -33,14 +33,24 @@ movies = [
     }
   ]
 
-# Allow cross-origin requests ie from frontend 
-app.add_middleware(
-  CORSMiddleware,
-  allow_origins=origins,
-  allow_credentials=True,
-  allow_methods=["*"],
-  allow_headers=["*"]
-)
+# BACKEND_CORS_ORIGINS is a JSON-formatted list of origins
+# e.g: '["http://localhost", "http://localhost:4200", "http://localhost:3000", \
+# "http://localhost:8080",'
+BACKEND_CORS_ORIGINS = [
+        "http://localhost:3000",
+        "http://localhost:8001",
+        "http://movielist.herokuapp.com",
+        ]
+
+# Set all CORS enabled origins
+if BACKEND_CORS_ORIGINS:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[str(origin) for origin in BACKEND_CORS_ORIGINS],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+        )
 
 """
 Routes
@@ -110,3 +120,9 @@ async def delete_movie(movie: dict) -> dict:
 
 
 app.include_router(router)
+
+
+if __name__ == "__main__":
+  import uvicorn
+
+  uvicorn.run(app, host="0.0.0.0", port=8001, log_level="debug")

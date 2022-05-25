@@ -31,7 +31,7 @@ export default function CardResult(props){
         }
 
         // POST movie to backend
-        const res = await axios.post('http://localhost:8000/movies', movie);
+        const res = await axios.post('http://localhost:8001/movies', movie);
 
         // Display success notification
         UIkit.notification({

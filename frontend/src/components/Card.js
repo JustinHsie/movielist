@@ -28,7 +28,7 @@ export default function Card(props){
         }
 
         // PUT rating change to backend
-        const res = await axios.put('http://localhost:8000/movies', movie);
+        const res = await axios.put('http://localhost:8001/movies', movie);
         // Change state so MyMovies re-renders and re-fetches movies
         props.setUpdate(res);
 
@@ -52,7 +52,7 @@ export default function Card(props){
             "id": props.id
         }
 
-        const res = await axios.delete('http://localhost:8000/movies', { data: movie });
+        const res = await axios.delete('http://localhost:8001/movies', { data: movie });
         // Change state so MyMovies re-renders and re-fetches movies
         props.setUpdate(res);
 

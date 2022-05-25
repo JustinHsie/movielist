@@ -17,7 +17,7 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
     poetry config virtualenvs.create false
 
 # copy requirements file
-COPY ./app/pyproject.toml ./app/poetry.lock* /app/
+COPY pyproject.toml poetry.lock* /
 
 # Allow installing dev dependencies to run tests
 ARG INSTALL_DEV=false
@@ -26,4 +26,6 @@ RUN bash -c "if [ $INSTALL_DEV == 'true' ] ; then poetry install --no-root ; els
 
 
 # copy project
-COPY ./app /app
+COPY . .
+
+CMD gunicorn -w 3 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:8001
