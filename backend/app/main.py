@@ -3,15 +3,32 @@ from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
 from dotenv import load_dotenv
+from app.db import engine, database, metadata
+
 load_dotenv()
 
 # MovieDB API key
 moviedb_api_key = os.environ.get('MOVIEDB_API_KEY')
 
+# Create db schema
+metadata.create_all(engine)
+
+# Instantiate app
 app = FastAPI()
 
+# Db startup shutdown handlers
+@app.on_event("startup")
+async def startup():
+  await database.connect()
+
+@app.on_event("shutdown")
+async def shutdown():
+  await database.disconnect()
+
+# Instantiate router
 router = APIRouter()
 
+# Origins
 origins = [
   "http://localhost:3000",
   "localhost:3000"

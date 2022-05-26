@@ -10,4 +10,25 @@ services:
     ports:
       - '8001:8001'
     environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/movielist_db
       - BACKEND_CORS_ORIGINS=["http://localhost:3000","http://localhost:8000"]
+  db:
+    image: postgres:14
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - '5432'
+    environment:
+      # This optional environment variable is used in conjunction with POSTGRES_PASSWORD
+      # to set a user and its password. This variable will create the specified user with superuser
+      # power and a database with the same name. If it is not specified, then the default user of
+      # postgres will be used.
+      - POSTGRES_USER=postgres
+      # This environment variable is required for you to use the PostgreSQL image.
+      # It must not be empty or undefined. This environment variable sets the superuser
+      # password for PostgreSQL. The default superuser is defined by the POSTGRES_USER environment variable.
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=movielist_db
+volumes:
+  postgres_data:
+
