@@ -16,8 +16,8 @@ export default function MyMovies(props) {
 
   // Fetch movies from backend and set movies state
   const fetchMovies = async () => {
-    const movies = await axios.get('http://localhost:8001/movies');
-    props.setMovies(movies.data.data);
+    const res = await axios.get('http://localhost:8001/movies');
+    props.setMovies(res.data);
   }
 
   // Re-renders and fetches movies on movie card update

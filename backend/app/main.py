@@ -63,7 +63,7 @@ async def root() -> dict:
 
 
 
-app.include_router(movies.router)
+app.include_router(movies.router, tags=["movies"])
 app.include_router(router)
 
 

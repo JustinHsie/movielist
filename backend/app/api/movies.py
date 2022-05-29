@@ -1,6 +1,9 @@
 import os
-from fastapi import APIRouter
+from typing import List
+from fastapi import APIRouter, HTTPException
 import httpx
+from app.api import crud
+from app.api.models import MovieSchema, MovieAdd, MovieUpdate, MovieDelete
 from dotenv import load_dotenv
 
 
@@ -10,29 +13,14 @@ moviedb_api_key = os.environ.get('MOVIEDB_API_KEY')
 
 router = APIRouter()
 
-# Mock db
-movies = [
-    {
-      "id": 1,
-      "title": 'The Batman',
-      "rating": 8,
-      "datetime": 1
-    },
-    {
-      "id": 2,
-      "title": 'Spirited Away',
-      "rating": 10,
-      "datetime": 0
-    }
-  ]
-
-# Get homepage
-@router.get("/movies", status_code=200)
+# Get homepage movies
+@router.get("/movies", response_model=List[MovieSchema], status_code=200)
 async def get_movies() -> dict:
     """
     GET movies
     """
-    return {"data": movies}
+    res = await crud.get_all()
+    return res
 
 # Get search page
 @router.get("/search/", status_code=200)
@@ -48,33 +36,54 @@ async def search_movie(query: str) -> dict:
   return {"query": res.json()}
 
 # Post movie
-@router.post("/movies", status_code=201)
-async def add_movie(movie: dict) -> dict:
+@router.post("/movies", response_model=MovieSchema, status_code=201)
+async def add_movie(movie: MovieAdd) -> dict:
   """
   POST movie
   """
-  movies.append(movie)
-  return {"data": {"Movie Added"}}
+  await crud.post(movie)
+
+  entry = {
+    "id": movie.id,
+    "image": movie.image,
+    "title": movie.title,
+    "rating": movie.rating,
+    "datetime": movie.datetime
+  }
+
+  return entry
 
 # Put movie
 @router.put("/movies", status_code=201)
-async def update_movie(movie: dict) -> dict:
+async def update_movie(movie: MovieUpdate) -> dict:
   """
   PUT movie
   """
-  for dbMovie in movies:
-    if dbMovie['id'] == movie['id']:
-      # Update movie rating
-      dbMovie['rating'] = movie['rating']
-      break
-  return {"data": {"Movie updated"}}
+  movieDb = await crud.get(movie.id)
+  if not movieDb:
+    raise HTTPException(status_code=404, detail='Movie not found')
+
+  await crud.put(movie.id, movie.rating)
+
+  res = {
+    "id": movie.id,
+    "rating": movie.rating
+  }
+  return res
 
 # Delete movie
 @router.delete("/movies", status_code=200)
-async def delete_movie(movie: dict) -> dict:
+async def delete_movie(movie: MovieDelete) -> dict:
   """
   DELETE movie
   """
-  # Delete movie
-  movies[:] = [dbMovie for dbMovie in movies if dbMovie['id'] != movie['id']]
-  return {"data": {"Movie deleted"}}
+  movieDb = await crud.get(movie.id)
+  if not movieDb:
+    raise HTTPException(status_code=404, detail='Movie not found')
+
+  await crud.delete(movie.id)
+
+  res = {
+    "id": movie.id
+  }
+  return res

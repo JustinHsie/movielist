@@ -42,8 +42,6 @@ export default function Card(props){
 
         // Reset disabled button after updating rating
         setDisabled(true);
-
-        
     }
 
     // Delete movie
@@ -51,8 +49,8 @@ export default function Card(props){
         let movie = {
             "id": props.id
         }
-
-        const res = await axios.delete('http://localhost:8001/movies', { data: movie });
+        // 2nd param is axios-dictated sytax to send a request body
+        const res = await axios.delete('http://localhost:8001/movies', {data: movie});
         // Change state so MyMovies re-renders and re-fetches movies
         props.setUpdate(res);
 

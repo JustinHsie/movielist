@@ -5,6 +5,7 @@ from sqlalchemy import (
   Column,
   Integer,
   String,
+  Float,
   Table
 )
 from sqlalchemy.sql import func
@@ -17,6 +18,7 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 engine = create_engine(DATABASE_URL)
 metadata = MetaData()
 
+# Movie table schema
 movies = Table(
     "movies",
     metadata,
@@ -24,7 +26,7 @@ movies = Table(
     Column("image", String),
     Column("title", String),
     Column("rating", Integer),
-    Column("datetime", Integer),
+    Column("datetime", Float),
 )
 
 # databases query builder
