@@ -30,7 +30,7 @@ export default function Card(props){
         // PUT rating change to backend
         const res = await axios.put('http://localhost:8001/movies', movie);
         // Change state so MyMovies re-renders and re-fetches movies
-        props.setUpdate(res);
+        props.setCardUpdate(res);
 
         // Display success notification
         UIkit.notification({
@@ -52,7 +52,7 @@ export default function Card(props){
         // 2nd param is axios-dictated sytax to send a request body
         const res = await axios.delete('http://localhost:8001/movies', {data: movie});
         // Change state so MyMovies re-renders and re-fetches movies
-        props.setUpdate(res);
+        props.setCardUpdate(res);
 
         // Display delete notification
         UIkit.notification({

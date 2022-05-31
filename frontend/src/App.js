@@ -6,8 +6,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 export default function App() {
 
-  // Movie and search results state
-  const[movies, setMovies] = useState([])
+  // Search results state
+  // State needs to be here bc both SearchBar in MyMovies page and Search page use it
   const [results, setResults] = useState([])
 
   return (
@@ -18,8 +18,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={
             <MyMovies 
-              movies={movies} 
-              setMovies={setMovies}
               setResults={setResults}
             />
           }/>

@@ -1,9 +1,9 @@
 // Functions
 
-// Handle sort by rating highest first
-export const handleSortRatingHighest = (props) => {
-  // Spreads into new array so React will detect props change and re-renders
-  let sortedMovies = [...props.movies];
+// Sort by rating highest first, returns sorted list
+export const handleSortRatingHighest = (movies) => {
+  // Spreads into new array
+  let sortedMovies = [...movies];
 
   let compare = (a, b) => {
     if (a.rating > b.rating) {
@@ -13,14 +13,13 @@ export const handleSortRatingHighest = (props) => {
     } else return 0;
   }
 
-  sortedMovies.sort(compare)
-  props.setMovies(sortedMovies)
+  sortedMovies.sort(compare);
+  return sortedMovies;
 }
 
-// Handle sort by rating lowest first
-export const handleSortRatingLowest = (props) => {
-  // Spreads into new array so React will detect props change and re-renders
-  let sortedMovies = [...props.movies];
+// Sort by rating lowest first, returns sorted list
+export const handleSortRatingLowest = (movies) => {
+  let sortedMovies = [...movies];
 
   let compare = (a, b) => {
     if (a.rating < b.rating) {
@@ -30,14 +29,14 @@ export const handleSortRatingLowest = (props) => {
     } else return 0;
   }
 
-  sortedMovies.sort(compare)
-  props.setMovies(sortedMovies)
+  sortedMovies.sort(compare);
+  return sortedMovies;
 }
 
-// Handle sort by newest first
-export const handleSortNewest = (props) => {
-  // Spreads into new array so React will detect props change and re-renders
-  let sortedMovies = [...props.movies];
+// Sort by newest first, returns sorted list
+export const handleSortNewest = (movies) => {
+  // Spreads into new array
+  let sortedMovies = [...movies];
 
   let compare = (a, b) => {
     if (a.datetime > b.datetime) {
@@ -47,14 +46,14 @@ export const handleSortNewest = (props) => {
     } else return 0;
   }
 
-  sortedMovies.sort(compare)
-  props.setMovies(sortedMovies)
+  sortedMovies.sort(compare);
+  return sortedMovies;
 }
 
-// Handle sort by oldest first
-export const handleSortOldest = (props) => {
-  // Spreads into new array so React will detect props change and re-renders
-  let sortedMovies = [...props.movies];
+// Sort by oldest first, returns sorted list
+export const handleSortOldest = (movies) => {
+  // Spreads into new array
+  let sortedMovies = [...movies];
 
   let compare = (a, b) => {
     if (a.datetime < b.datetime) {
@@ -64,6 +63,6 @@ export const handleSortOldest = (props) => {
     } else return 0;
   }
 
-  sortedMovies.sort(compare)
-  props.setMovies(sortedMovies)
+  sortedMovies.sort(compare);
+  return sortedMovies;
 }

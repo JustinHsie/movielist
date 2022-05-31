@@ -11,19 +11,35 @@ import { handleSortRatingHighest,
 const axios = require('axios').default;
 
 export default function MyMovies(props) {
-  // Tracks if a movie has been updated
-  const [updated, setUpdate] = useState();
-
-  // Fetch movies from backend and set movies state
-  const fetchMovies = async () => {
-    const res = await axios.get('http://localhost:8001/movies');
-    props.setMovies(res.data);
-  }
-
-  // Re-renders and fetches movies on movie card update
+  // Current sort order
+  const [sort, setSort] = useState(() => handleSortNewest);
+  // Frontend copy of movies
+  const [movies, setMovies] = useState([])
+  // Tracks if a movie card has been updated
+  const [cardUpdated, setCardUpdate] = useState();
+  
+  // On movie card update:
+  // Fetch movies from backend
   useEffect(() => {
     fetchMovies();
-  }, [updated])
+  }, [cardUpdated])
+
+  // On sort change:
+  // Sort movies, then set frontend movies 
+  // (No fetch from backend)
+  useEffect(() => {
+    let sortedMovies = sort(movies);
+    setMovies(sortedMovies);
+  }, [sort])
+
+
+  const fetchMovies = async () => {
+    // Fetch movies from backend
+    const res = await axios.get('http://localhost:8001/movies');
+    // Sort movies then set to frontend
+    let sortedMovies = sort(res.data);
+    setMovies(sortedMovies);
+  }
 
   return(
       <div id="movies">
@@ -35,15 +51,24 @@ export default function MyMovies(props) {
             </div>
             <div>
               <Sort
-                onClickRatingHighest={() => {handleSortRatingHighest(props)}}
-                onClickRatingLowest={() => {handleSortRatingLowest(props)}}
-                onClickNewest={() => {handleSortNewest(props)}}
-                onClickOldest={() => {handleSortOldest(props)}}
+                // Change sort state, will trigger useEffect to sort
+                onClickRatingHighest={() => {
+                  setSort(() => handleSortRatingHighest);
+                }}
+                onClickRatingLowest={() => {
+                  setSort(() => handleSortRatingLowest);
+                }}
+                onClickNewest={() => {
+                  setSort(() => handleSortNewest);
+                }}
+                onClickOldest={() => {
+                  setSort(() => handleSortOldest);
+                }}
               />
             </div>
           </div>
           <div id="grid-container">
-            {props.movies.map(
+            {movies.map(
               movie => {
                 return <Card 
                   key={movie.id}
@@ -51,7 +76,7 @@ export default function MyMovies(props) {
                   image={movie.image}
                   title={movie.title}
                   rating={movie.rating}
-                  setUpdate={setUpdate}
+                  setCardUpdate={setCardUpdate}
                 />
               }
             )}
