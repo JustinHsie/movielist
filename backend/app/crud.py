@@ -1,4 +1,4 @@
-from app.api.models import MovieSchema
+from app.models import MovieSchema
 from app.db import movies, database
 
 # GET

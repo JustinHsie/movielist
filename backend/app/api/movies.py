@@ -2,14 +2,14 @@ import os
 from typing import List
 from fastapi import APIRouter, HTTPException
 import httpx
-from app.api import crud
-from app.api.models import MovieSchema, MovieAdd, MovieUpdate, MovieDelete
+from app import crud
+from app.models import MovieSchema, MovieAdd, MovieUpdate, MovieDelete
 from dotenv import load_dotenv
 
 
 # MovieDB API key
 load_dotenv()
-moviedb_api_key = os.environ.get('MOVIEDB_API_KEY')
+MOVIEDB_API_KEY = os.environ.get('MOVIEDB_API_KEY')
 
 router = APIRouter()
 
@@ -31,7 +31,7 @@ async def search_movie(query: str) -> dict:
 
   # Make API call to TheMovieDB
   async with httpx.AsyncClient() as client:
-    res = await client.get(f'https://api.themoviedb.org/3/search/movie?api_key={moviedb_api_key}&language=en-US&query={query}&page=1&include_adult=false')
+    res = await client.get(f'https://api.themoviedb.org/3/search/movie?api_key={MOVIEDB_API_KEY}&language=en-US&query={query}&page=1&include_adult=false')
   
   return {"query": res.json()}
 
