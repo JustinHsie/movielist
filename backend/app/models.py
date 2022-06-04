@@ -1,5 +1,9 @@
 from pydantic import BaseModel
+from typing import Union
 
+"""
+Movie
+"""
 # Movie schema
 class MovieSchema(BaseModel):
   id: int
@@ -32,3 +36,23 @@ class MovieCreate(BaseModel):
   title: str
   rating: int
   datetime: float
+
+
+"""
+User
+"""
+class User(BaseModel):
+  username: str
+
+class UserInDB(User):
+  hashed_password: str
+
+"""
+Token
+"""
+class Token(BaseModel):
+  access_token: str
+  token_type: str
+
+class TokenData(BaseModel):
+  username: Union[str, None] = None

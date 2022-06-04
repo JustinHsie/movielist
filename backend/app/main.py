@@ -1,17 +1,37 @@
-from fastapi import FastAPI, APIRouter
+from typing import Union
+from datetime import datetime, timedelta
+
+from fastapi import FastAPI, APIRouter, HTTPException, Depends, status
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
-from dotenv import load_dotenv
+import os
+from pydantic import BaseModel
+from passlib.context import CryptContext
+from jose import JWTError, jwt
+
 from app.db import engine, database, metadata
-from app.api import movies
+from app.api import movies, auth
 
-
-load_dotenv()
 
 # Create db schema
 metadata.create_all(engine)
 
+
 # Instantiate app
 app = FastAPI()
+
+# Instantiate router
+router = APIRouter()
+
+
+# Root get
+@router.get("/", status_code=200)
+async def root():
+  """
+  Root GET
+  """
+  return {"Hello, World!"}
+
 
 # Db startup shutdown handlers
 @app.on_event("startup")
@@ -22,15 +42,12 @@ async def startup():
 async def shutdown():
   await database.disconnect()
 
-# Instantiate router
-router = APIRouter()
 
 # Origins
 origins = [
   "http://localhost:3000",
   "localhost:3000"
 ]
-
 
 
 # BACKEND_CORS_ORIGINS is a JSON-formatted list of origins
@@ -50,19 +67,10 @@ if BACKEND_CORS_ORIGINS:
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
-        )
+    )
 
 
-# Root get
-@router.get("/", status_code=200)
-async def root() -> dict:
-  """
-  Root GET
-  """
-  return {"msg": "Hello, World!"}
-
-
-
+app.include_router(auth.router, tags=["auth"])
 app.include_router(movies.router, tags=["movies"])
 app.include_router(router)
 

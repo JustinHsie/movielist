@@ -1,14 +1,14 @@
 import os
 from sqlalchemy import (
+  ForeignKey,
   create_engine, 
   MetaData,
   Column,
   Integer,
   String,
   Float,
-  Table
+  Table,
 )
-from sqlalchemy.sql import func
 from databases import Database
 
 
@@ -19,6 +19,7 @@ engine = create_engine(DATABASE_URL)
 metadata = MetaData()
 
 # Movie table schema
+# Composite primary key - movie id and username
 movies = Table(
     "movies",
     metadata,
@@ -27,6 +28,15 @@ movies = Table(
     Column("title", String),
     Column("rating", Integer),
     Column("datetime", Float),
+    Column("username", String, ForeignKey("users.username"), primary_key=True),
+)
+
+# User table schema
+users = Table(
+  "users",
+  metadata,
+  Column("username", String, primary_key=True),
+  Column("hashed_password", String),
 )
 
 # databases query builder
