@@ -1,0 +1,44 @@
+import React from 'react';
+import './Form.css';
+
+export default function LoginForm(props) {
+  return(
+    <div>
+      <div className="form-div">
+        <form 
+          className="uk-search uk-search-navbar form-bar" 
+          onSubmit={props.onFormSubmit}>
+          <input 
+            className="uk-search-input form-input" 
+            type="text"
+            placeholder="Username"
+            value={props.usernameValue}
+            onChange={props.onUsernameInput}/>
+          <input 
+            className="uk-search-input uk-form-password form-input" 
+            type="password"
+            placeholder="Password"
+            value={props.passwordValue}
+            onChange={props.onPasswordInput}/>
+        </form>
+      </div>
+      <div className='form-div'>
+        <button 
+          onClick={props.onFormSubmit} 
+          className="uk-button uk-button-default new-button form-button">
+          Login
+        </button>
+      </div>
+      <div id='form-alt-link'>
+        <a href="/signup">Signup</a>
+      </div>
+      <div className='form-div demo-button-div'>
+        <button 
+          onClick={props.onFormSubmit} 
+          className="uk-button uk-button-default new-button form-button demo-button">
+          Demo Login
+        </button>
+      </div>
+    </div>
+  )
+}

@@ -1,0 +1,35 @@
+.form-bar{
+  background-color:white;
+  color:white;
+  padding-left: 17px;
+  border-radius: 25px!important;
+}
+
+.form-bar .form-input{
+  font-size: 1rem!important;
+}
+
+.form-div{
+  padding-top: 17px;
+}
+
+.form-button{
+  background-color:#9a4de7f5!important;
+  float: left;
+}
+
+.demo-button-div{
+  padding-top: 100px;
+}
+
+.demo-button{
+  background-color:#319cf4f5!important;
+}
+
+#form-alt-link a{
+  padding-top: 7px;
+  float: right;
+  text-decoration: none;
+  color: #787878;
+}
+

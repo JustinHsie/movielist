@@ -1,13 +1,5 @@
-from typing import Union
-from datetime import datetime, timedelta
-
-from fastapi import FastAPI, APIRouter, HTTPException, Depends, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
-import os
-from pydantic import BaseModel
-from passlib.context import CryptContext
-from jose import JWTError, jwt
 
 from app.db import engine, database, metadata
 from app.api import movies, auth

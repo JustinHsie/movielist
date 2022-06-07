@@ -33,7 +33,12 @@
   padding-top: 7px;
 }
 
-#movie-title-container, #movie-search-container{
+#movie-form-container{
+  float: left;
+  padding-top: 7px;
+}
+
+#movie-title-container, #movie-search-container, #movie-form-container{
   margin-bottom: 30px;
 }
 
@@ -87,7 +92,7 @@
       width: fit-content;
   }
 
-  #movie-search-container{
+  #movie-search-container, #movie-form-container{
     padding-top:20px;
     margin:0px auto 35px auto;
     float: none;
