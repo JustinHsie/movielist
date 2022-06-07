@@ -34,7 +34,7 @@ export default function LoginForm(props) {
       </div>
       <div className='form-div demo-button-div'>
         <button 
-          onClick={props.onFormSubmit} 
+          onClick={props.onDemoSubmit} 
           className="uk-button uk-button-default new-button form-button demo-button">
           Demo Login
         </button>

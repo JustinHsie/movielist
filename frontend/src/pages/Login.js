@@ -43,6 +43,31 @@ export default function Login() {
     navigate('/');
   };
 
+  // Demo login
+  const handleDemoSubmit = async e => {
+    e.preventDefault();
+
+    // Error handling (eg empty fields) not implemented yet
+    // Send as form data
+    const bodyFormData = new FormData();
+    bodyFormData.append('username', 'demo');
+    bodyFormData.append('password', 123);
+    let res = await axios({
+      method: 'post',
+      url: 'http://localhost:8001/login',
+      data: bodyFormData,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+
+    // Store token in local storage
+    let token = res.data.access_token;
+    let user = res.data.username
+    localStorage.setItem('token', token)
+    localStorage.setItem('username', user)
+
+    navigate('/');
+  }
+
   return (
     <div id="movies">
       <div id="movie-container">
@@ -60,6 +85,7 @@ export default function Login() {
               passwordValue={password}
               onPasswordInput={handlePasswordInput}
               onFormSubmit={handleFormSubmit}
+              onDemoSubmit={handleDemoSubmit}
             />
           </div>
         </div>
