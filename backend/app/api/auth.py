@@ -36,7 +36,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
   access_token = create_access_token(
     data={"sub": user.username}, expires_delta=access_token_expires
   )
-  return {"access_token": access_token, "token_type": "bearer"}
+  return {"access_token": access_token, "token_type": "bearer", "username": form_data.username}
 
 
 # Gets user, returns as User schema

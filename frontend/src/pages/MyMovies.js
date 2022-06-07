@@ -3,6 +3,7 @@ import './MyMovies.css';
 import Card from '../components/Card';
 import SearchBar from '../components/SearchBar';
 import Sort from '../components/Sort';
+import { useNavigate } from 'react-router-dom';
 import { handleSortRatingHighest, 
          handleSortRatingLowest, 
          handleSortNewest, 
@@ -11,12 +12,15 @@ import { handleSortRatingHighest,
 const axios = require('axios').default;
 
 export default function MyMovies(props) {
+  let navigate = useNavigate();
+
   // Current sort order
   const [sort, setSort] = useState(() => handleSortNewest);
   // Frontend copy of movies
   const [movies, setMovies] = useState([])
   // Tracks if a movie card has been updated
   const [cardUpdated, setCardUpdate] = useState();
+
   
   // On movie card update:
   // Fetch movies from backend
@@ -32,13 +36,30 @@ export default function MyMovies(props) {
     setMovies(sortedMovies);
   }, [sort])
 
+  // Config for auth header
+  let config = {
+    headers: {
+      'Authorization': "Bearer " + localStorage.getItem('token')
+    }
+  }
 
-  const fetchMovies = async () => {
+  const fetchMovies = () => {
     // Fetch movies from backend
-    const res = await axios.get('http://localhost:8001/movies');
-    // Sort movies then set to frontend
-    let sortedMovies = sort(res.data);
-    setMovies(sortedMovies);
+    axios.get('http://localhost:8001/movies', config)
+      .then((res) => {
+        // Sort movies then set to frontend
+        let sortedMovies = sort(res.data);
+        setMovies(sortedMovies);
+      })
+      .catch((error) => {
+        // If error navigate to error page
+        navigate('/error')
+      })
+  }
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
   }
 
   return(
@@ -46,6 +67,7 @@ export default function MyMovies(props) {
         <div id="movie-container">
           <div id="movie-title-container">
             <h1 id="movie-header"><a href="/">Movie List</a></h1>
+            <a id="movie-logout" onClick={handleLogout}>Logout</a>
             <div id="movie-search-container">
               <SearchBar setResults={props.setResults}/>
             </div>

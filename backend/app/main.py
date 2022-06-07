@@ -1,5 +1,5 @@
 from fastapi import FastAPI, APIRouter
-from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 
 from app.db import engine, database, metadata
 from app.api import movies, auth
@@ -35,11 +35,9 @@ async def shutdown():
   await database.disconnect()
 
 
-# Origins
-origins = [
-  "http://localhost:3000",
-  "localhost:3000"
-]
+app.include_router(auth.router, tags=["auth"])
+app.include_router(movies.router, tags=["movies"])
+app.include_router(router)
 
 
 # BACKEND_CORS_ORIGINS is a JSON-formatted list of origins
@@ -52,19 +50,14 @@ BACKEND_CORS_ORIGINS = [
         ]
 
 # Set all CORS enabled origins
-if BACKEND_CORS_ORIGINS:
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=[str(origin) for origin in BACKEND_CORS_ORIGINS],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
 
-
-app.include_router(auth.router, tags=["auth"])
-app.include_router(movies.router, tags=["movies"])
-app.include_router(router)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=BACKEND_CORS_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 if __name__ == "__main__":

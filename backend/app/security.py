@@ -34,7 +34,7 @@ def verify_password(plain_password, hashed_password):
 def get_password_hash(password):
   return pwd_context.hash(password)
 
-# Get user from db, returns UserInDB schema
+# Get user from db, returns user
 async def get_user(username: str):
   query = users.select().where(users.c.username == username)
   return await database.fetch_one(query=query)

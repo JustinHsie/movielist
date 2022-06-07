@@ -1,9 +1,10 @@
 import os
 from typing import List
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 import httpx
 from app import crud
-from app.models import MovieSchema, MovieAdd, MovieUpdate, MovieDelete
+from app.models import MovieSchema, MovieAdd, MovieUpdate, MovieDelete, User
+from app.security import get_current_user
 from dotenv import load_dotenv
 
 
@@ -15,11 +16,11 @@ router = APIRouter()
 
 # Get homepage movies
 @router.get("/movies", response_model=List[MovieSchema], status_code=200)
-async def get_movies() -> dict:
+async def get_movies(user: User = Depends(get_current_user)) -> dict:
     """
     GET movies
     """
-    res = await crud.get_all()
+    res = await crud.get_all(user.username)
     return res
 
 # Get search page
@@ -37,7 +38,7 @@ async def search_movie(query: str) -> dict:
 
 # Post movie
 @router.post("/movies", response_model=MovieSchema, status_code=201)
-async def add_movie(movie: MovieAdd) -> dict:
+async def add_movie(movie: MovieAdd, user: User = Depends(get_current_user)) -> dict:
   """
   POST movie
   """
@@ -48,22 +49,23 @@ async def add_movie(movie: MovieAdd) -> dict:
     "image": movie.image,
     "title": movie.title,
     "rating": movie.rating,
-    "datetime": movie.datetime
+    "datetime": movie.datetime,
+    "username": movie.username,
   }
 
   return entry
 
 # Put movie
 @router.put("/movies", status_code=201)
-async def update_movie(movie: MovieUpdate) -> dict:
+async def update_movie(movie: MovieUpdate, user: User = Depends(get_current_user)) -> dict:
   """
   PUT movie
   """
-  movieDb = await crud.get(movie.id)
+  movieDb = await crud.get(movie.id, user.username)
   if not movieDb:
     raise HTTPException(status_code=404, detail='Movie not found')
 
-  await crud.put(movie.id, movie.rating)
+  await crud.put(movie.id, movie.rating, user.username)
 
   res = {
     "id": movie.id,
@@ -73,15 +75,15 @@ async def update_movie(movie: MovieUpdate) -> dict:
 
 # Delete movie
 @router.delete("/movies", status_code=200)
-async def delete_movie(movie: MovieDelete) -> dict:
+async def delete_movie(movie: MovieDelete, user: User = Depends(get_current_user)) -> dict:
   """
   DELETE movie
   """
-  movieDb = await crud.get(movie.id)
+  movieDb = await crud.get(movie.id, user.username)
   if not movieDb:
     raise HTTPException(status_code=404, detail='Movie not found')
 
-  await crud.delete(movie.id)
+  await crud.delete(movie.id, user.username)
 
   res = {
     "id": movie.id

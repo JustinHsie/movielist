@@ -10,6 +10,13 @@ export default function Card(props){
     const [rating, setRating] = useState(props.rating);
     const [disabled, setDisabled] = useState(true);
 
+    // Config for auth header
+    let config = {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        },
+      };
+
     // Slider state change
     const handleChange = e => {
         setRating(e.target.value);
@@ -28,7 +35,7 @@ export default function Card(props){
         }
 
         // PUT rating change to backend
-        const res = await axios.put('http://localhost:8001/movies', movie);
+        const res = await axios.put('http://localhost:8001/movies', movie, config);
         // Change state so MyMovies re-renders and re-fetches movies
         props.setCardUpdate(res);
 
@@ -50,7 +57,9 @@ export default function Card(props){
             "id": props.id
         }
         // 2nd param is axios-dictated sytax to send a request body
-        const res = await axios.delete('http://localhost:8001/movies', {data: movie});
+        const res = await axios.delete('http://localhost:8001/movies', {data: movie, headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+          }});
         // Change state so MyMovies re-renders and re-fetches movies
         props.setCardUpdate(res);
 

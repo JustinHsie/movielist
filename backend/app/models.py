@@ -11,6 +11,7 @@ class MovieSchema(BaseModel):
   title: str
   rating: int
   datetime: float
+  username:str
 
 # Validate POST requests
 class MovieAdd(BaseModel):
@@ -19,6 +20,7 @@ class MovieAdd(BaseModel):
   title: str
   rating: int
   datetime: float
+  username: str
 
 # Validate PUT requests
 class MovieUpdate(BaseModel):
@@ -36,6 +38,7 @@ class MovieCreate(BaseModel):
   title: str
   rating: int
   datetime: float
+  username:str
 
 
 """
@@ -53,6 +56,7 @@ Token
 class Token(BaseModel):
   access_token: str
   token_type: str
+  username: str
 
 class TokenData(BaseModel):
   username: Union[str, None] = None
