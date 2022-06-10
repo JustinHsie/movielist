@@ -18,7 +18,7 @@ export default function CardResult(props) {
   };
 
   // Add movie
-  const handleAddMovie = async () => {
+  const handleAddMovie = () => {
     // Get current datetime
     let datetime = Date.now();
 
@@ -39,17 +39,28 @@ export default function CardResult(props) {
     };
 
     // POST movie to backend
-    const res = await axios.post('http://localhost:8001/movies', movie, config);
-
-    // Display success notification
-    UIkit.notification({
-      message: 'Movie Added',
-      status: 'success',
-      pos: 'top-center',
-      timeout: 3000,
-    });
-
-    navigate('/');
+    axios
+      .post('http://localhost:8001/movies', movie, config)
+      .then(res => {
+        // Display success notification
+        UIkit.notification({
+          message: 'Movie Added',
+          status: 'success',
+          pos: 'top-center',
+          timeout: 3000,
+        });
+        navigate('/');
+      })
+      .catch(error => {
+        let errorMessage = error.response.data.detail;
+        // Display error notification
+        UIkit.notification({
+          message: errorMessage,
+          status: 'warning',
+          pos: 'top-center',
+          timeout: 5000,
+        });
+      });
   };
 
   return (

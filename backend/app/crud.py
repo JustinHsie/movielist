@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from app.models import MovieSchema
 from app.db import movies, database
 
@@ -21,7 +22,8 @@ async def post(movie: MovieSchema):
     datetime=movie.datetime,
     username=movie.username
   )
-  return await database.execute(query=query)
+  try: return await database.execute(query=query)
+  except: raise HTTPException(status_code=400, detail="Movie already exists")
 
 # PUT
 async def put(id: int, rating: int, username: str):

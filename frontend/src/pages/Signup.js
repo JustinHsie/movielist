@@ -53,7 +53,14 @@ export default function Signup() {
         navigate('/login');
       })
       .catch(error => {
-        console.log(error);
+        let errorMessage = error.response.data.detail;
+        // Display error notification
+        UIkit.notification({
+          message: errorMessage,
+          status: 'warning',
+          pos: 'top-center',
+          timeout: 5000,
+        });
       });
   };
 

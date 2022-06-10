@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import LoginForm from '../components/LoginForm';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import UIkit from 'uikit';
 import './MyMovies.css';
 
 const axios = require('axios').default;
@@ -26,7 +27,7 @@ export default function Login() {
     }
   };
 
-  const handleFormSubmit = async e => {
+  const handleFormSubmit = e => {
     e.preventDefault();
 
     // Error handling (eg empty fields) not implemented yet
@@ -34,20 +35,30 @@ export default function Login() {
     const bodyFormData = new FormData();
     bodyFormData.append('username', username);
     bodyFormData.append('password', password);
-    let res = await axios({
+    axios({
       method: 'post',
       url: 'http://localhost:8001/login',
       data: bodyFormData,
       headers: { 'Content-Type': 'multipart/form-data' },
-    });
-
-    // Store token in local storage
-    let token = res.data.access_token;
-    let user = res.data.username
-    localStorage.setItem('token', token)
-    localStorage.setItem('username', user)
-
-    navigate('/');
+    })
+      .then(res => {
+        // Store token in local storage
+        let token = res.data.access_token;
+        let user = res.data.username;
+        localStorage.setItem('token', token);
+        localStorage.setItem('username', user);
+        navigate('/');
+      })
+      .catch(error => {
+        let errorMessage = error.response.data.detail;
+        // Display error notification
+        UIkit.notification({
+          message: errorMessage,
+          status: 'warning',
+          pos: 'top-center',
+          timeout: 5000,
+        });
+      });
   };
 
   // Demo login
@@ -67,12 +78,12 @@ export default function Login() {
 
     // Store token in local storage
     let token = res.data.access_token;
-    let user = res.data.username
-    localStorage.setItem('token', token)
-    localStorage.setItem('username', user)
+    let user = res.data.username;
+    localStorage.setItem('token', token);
+    localStorage.setItem('username', user);
 
     navigate('/');
-  }
+  };
 
   return (
     <div id="movies">

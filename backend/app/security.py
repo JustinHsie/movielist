@@ -4,7 +4,7 @@ from typing import Union
 from datetime import datetime, timedelta
 
 from fastapi import HTTPException, Depends, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer
 
 from passlib.context import CryptContext
 from jose import JWTError, jwt
