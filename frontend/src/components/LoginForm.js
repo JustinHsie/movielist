@@ -7,7 +7,8 @@ export default function LoginForm(props) {
       <div className="form-div">
         <form 
           className="uk-search uk-search-navbar form-bar" 
-          onSubmit={props.onFormSubmit}>
+          onSubmit={props.onFormSubmit}
+          onKeyDown={props.onKeyDown}>
           <input 
             className="uk-search-input form-input" 
             type="text"

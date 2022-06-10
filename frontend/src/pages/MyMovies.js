@@ -52,8 +52,8 @@ export default function MyMovies(props) {
         setMovies(sortedMovies);
       })
       .catch((error) => {
-        // If error navigate to error page
-        navigate('/error')
+        // If error navigate to login page
+        navigate('/login')
       })
   }
 

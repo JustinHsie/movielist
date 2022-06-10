@@ -19,6 +19,13 @@ export default function Login() {
     setPassword(e.target.value);
   };
 
+  // Enter key submit
+  const handleKeyDown = e => {
+    if (e.key === 'Enter') {
+      handleFormSubmit(e);
+    }
+  };
+
   const handleFormSubmit = async e => {
     e.preventDefault();
 
@@ -47,7 +54,6 @@ export default function Login() {
   const handleDemoSubmit = async e => {
     e.preventDefault();
 
-    // Error handling (eg empty fields) not implemented yet
     // Send as form data
     const bodyFormData = new FormData();
     bodyFormData.append('username', 'demo');
@@ -86,6 +92,7 @@ export default function Login() {
               onPasswordInput={handlePasswordInput}
               onFormSubmit={handleFormSubmit}
               onDemoSubmit={handleDemoSubmit}
+              onKeyDown={handleKeyDown}
             />
           </div>
         </div>

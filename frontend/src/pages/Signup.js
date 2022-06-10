@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SignupForm from '../components/SignupForm';
 import { useNavigate } from 'react-router-dom';
 import UIkit from 'uikit';
@@ -21,7 +21,14 @@ export default function Signup() {
     setPassword(e.target.value);
   };
 
-  const handleFormSubmit = async e => {
+  // Enter key submit
+  const handleKeyDown = e => {
+    if (e.key === 'Enter') {
+      handleFormSubmit(e);
+    }
+  };
+
+  const handleFormSubmit = e => {
     e.preventDefault();
 
     // Error handling (eg empty fields) not implemented yet
@@ -29,48 +36,55 @@ export default function Signup() {
     const bodyFormData = new FormData();
     bodyFormData.append('username', username);
     bodyFormData.append('password', password);
-    await axios({
+    axios({
       method: 'post',
       url: 'http://localhost:8001/signup',
       data: bodyFormData,
       headers: { 'Content-Type': 'multipart/form-data' },
-    });
-
-    // Display success notification
-    UIkit.notification({
-      message: 'Signed Up! Please Log In',
-      status: 'success',
-      pos: 'top-center',
-      timeout: 3000,
-    });
-
-    navigate('/login');
+    })
+      .then(res => {
+        // Display success notification
+        UIkit.notification({
+          message: 'Signed Up! Please Log In',
+          status: 'success',
+          pos: 'top-center',
+          timeout: 5000,
+        });
+        navigate('/login');
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   // Demo login
-  const handleDemoSubmit = async e => {
+  const handleDemoSubmit = e => {
     e.preventDefault();
 
-    // Error handling (eg empty fields) not implemented yet
     // Send as form data
     const bodyFormData = new FormData();
     bodyFormData.append('username', 'demo');
     bodyFormData.append('password', 123);
-    let res = await axios({
+    axios({
       method: 'post',
       url: 'http://localhost:8001/login',
       data: bodyFormData,
       headers: { 'Content-Type': 'multipart/form-data' },
-    });
-
-    // Store token in local storage
-    let token = res.data.access_token;
-    let user = res.data.username
-    localStorage.setItem('token', token)
-    localStorage.setItem('username', user)
+    })
+      .then(res => {
+        // Store token in local storage
+        let token = res.data.access_token;
+        let user = res.data.username;
+        localStorage.setItem('token', token);
+        localStorage.setItem('username', user);
+      })
+      .catch(error => {
+        // If error navigate to login page
+        navigate('/login');
+      });
 
     navigate('/');
-  }
+  };
 
   return (
     <div id="movies">
@@ -90,6 +104,7 @@ export default function Signup() {
               onPasswordInput={handlePasswordInput}
               onFormSubmit={handleFormSubmit}
               onDemoSubmit={handleDemoSubmit}
+              onKeyDown={handleKeyDown}
             />
           </div>
         </div>
