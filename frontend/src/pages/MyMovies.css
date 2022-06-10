@@ -19,6 +19,17 @@
   color: #787878;
 }
 
+#movie-subheader-home{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  padding-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 23px;
+  color: #787878;
+}
+
 #movie-header a{
   color: #9a4de7;
   text-decoration: none;
