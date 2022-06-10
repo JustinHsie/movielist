@@ -20,7 +20,12 @@ router = APIRouter()
 @router.post("/signup")
 async def signup(form_data: OAuth2PasswordRequestForm = Depends()):
   user = await create_user(form_data.username, form_data.password)
-  return user
+  # Login after signup
+  access_token_expires = timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
+  access_token = create_access_token(
+    data={"sub": form_data.username}, expires_delta=access_token_expires
+  )
+  return {"access_token": access_token, "token_type": "bearer", "username": form_data.username}
 
 # Login to get token, returns JSON with jwt
 @router.post("/login", response_model=Token)

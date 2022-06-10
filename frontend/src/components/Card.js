@@ -66,7 +66,7 @@ export default function Card(props){
         // Display delete notification
         UIkit.notification({
             message: 'Movie Deleted',
-            status: 'success',
+            status: 'warning',
             pos: 'top-center',
             timeout: 3000
         });
@@ -80,7 +80,7 @@ export default function Card(props){
                 <div className="card-info-container">
                     <div className="card-info">
                         <h3 className="uk-card-title card-title">{props.title}</h3>
-                        <p className="card-description">Rating</p>
+                        <p className="card-description">My Rating</p>
                         <p className="card-description">{rating} / 10</p>
                     </div>
                     <form>

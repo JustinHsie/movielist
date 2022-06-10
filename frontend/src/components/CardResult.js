@@ -77,7 +77,7 @@ export default function CardResult(props) {
         <div className="card-info-container">
           <div className="card-info">
             <h3 className="uk-card-title card-title">{props.title}</h3>
-            <p className="card-description">Rating</p>
+            <p className="card-description">My Rating</p>
             <p className="card-description">{rating} / 10</p>
           </div>
           <form>

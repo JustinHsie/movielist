@@ -37,6 +37,11 @@ export default function MyMovies(props) {
     setMovies(sortedMovies);
   }, [sort]);
 
+  // Scroll to top on re-render
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   // Config for auth header
   let config = {
     headers: {
@@ -55,7 +60,7 @@ export default function MyMovies(props) {
       })
       .catch(error => {
         // If error navigate to login page
-        navigate('/login');
+        navigate('/signup');
       });
   };
 
@@ -78,6 +83,9 @@ export default function MyMovies(props) {
             <div id="movie-search-container">
               <SearchBar setResults={props.setResults} />
             </div>
+            <div>
+              <h1 id="movie-subheader">{localStorage.getItem('username')}'s movies</h1>
+            </div>
           </div>
           <div>
             <h1 id="movie-subheader-home">Search to start adding movies!</h1>
@@ -98,6 +106,9 @@ export default function MyMovies(props) {
             </a>
             <div id="movie-search-container">
               <SearchBar setResults={props.setResults} />
+            </div>
+            <div>
+              <h1 id="movie-subheader">{localStorage.getItem('username')}'s movies</h1>
             </div>
             <div>
               <Sort

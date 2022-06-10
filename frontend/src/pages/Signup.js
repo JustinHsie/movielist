@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import SignupForm from '../components/SignupForm';
 import { useNavigate } from 'react-router-dom';
 import UIkit from 'uikit';
@@ -43,14 +43,12 @@ export default function Signup() {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
       .then(res => {
-        // Display success notification
-        UIkit.notification({
-          message: 'Signed Up! Please Log In',
-          status: 'success',
-          pos: 'top-center',
-          timeout: 5000,
-        });
-        navigate('/login');
+        // Store token in local storage
+        let token = res.data.access_token;
+        let user = res.data.username;
+        localStorage.setItem('token', token);
+        localStorage.setItem('username', user);
+        navigate('/');
       })
       .catch(error => {
         let errorMessage = error.response.data.detail;
