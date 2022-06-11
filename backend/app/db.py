@@ -40,5 +40,5 @@ users = Table(
 )
 
 # databases query builder
-database = Database(DATABASE_URL)
+database = Database(DATABASE_URL, ssl=True, min_size=5, max_size=20)
 
