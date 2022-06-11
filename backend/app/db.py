@@ -11,8 +11,8 @@ from sqlalchemy import (
 )
 from databases import Database
 
-
-DATABASE_URL = os.getenv("DATABASE_URL")
+# Heroku and SQLAlchemy compatability
+DATABASE_URL = os.getenv("DATABASE_URL").replace("postgres://", "postgresql://", 1)
 
 # SQLAlchemy
 engine = create_engine(DATABASE_URL)
