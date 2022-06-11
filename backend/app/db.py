@@ -15,7 +15,7 @@ from databases import Database
 DATABASE_URL = os.getenv("DATABASE_URL").replace("postgres://", "postgresql://", 1)
 
 # SQLAlchemy
-engine = create_engine(DATABASE_URL, pool_size=20, max_overflow=0)
+engine = create_engine(DATABASE_URL, pool_size=10, max_overflow=0)
 metadata = MetaData()
 
 # Movie table schema
@@ -40,5 +40,5 @@ users = Table(
 )
 
 # databases query builder
-database = Database(DATABASE_URL, ssl=True, min_size=5, max_size=20)
+database = Database(DATABASE_URL, ssl=True, min_size=5, max_size=10)
 
