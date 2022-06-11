@@ -30,7 +30,18 @@ export default function Login() {
   const handleFormSubmit = e => {
     e.preventDefault();
 
-    // Error handling (eg empty fields) not implemented yet
+    // Error handling empty fields
+    if (username == '' || password == '') {
+      // Display error notification
+      UIkit.notification({
+        message: 'Username or password cannot be empty',
+        status: 'warning',
+        pos: 'top-center',
+        timeout: 5000,
+      });
+      return;
+    }
+    
     // Send as form data
     const bodyFormData = new FormData();
     bodyFormData.append('username', username);

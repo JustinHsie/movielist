@@ -23,7 +23,7 @@ async def post(movie: MovieSchema):
     username=movie.username
   )
   try: return await database.execute(query=query)
-  except: raise HTTPException(status_code=400, detail="Movie already exists")
+  except: raise HTTPException(status_code=400, detail="Movie already added")
 
 # PUT
 async def put(id: int, rating: int, username: str):

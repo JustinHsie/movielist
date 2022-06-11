@@ -31,7 +31,18 @@ export default function Signup() {
   const handleFormSubmit = e => {
     e.preventDefault();
 
-    // Error handling (eg empty fields) not implemented yet
+    // Error handling empty fields
+    if (username == '' || password == '') {
+      // Display error notification
+      UIkit.notification({
+        message: 'Username or password cannot be empty',
+        status: 'warning',
+        pos: 'top-center',
+        timeout: 5000,
+      });
+      return;
+    }
+
     // Send as form data
     const bodyFormData = new FormData();
     bodyFormData.append('username', username);
@@ -82,13 +93,12 @@ export default function Signup() {
         let user = res.data.username;
         localStorage.setItem('token', token);
         localStorage.setItem('username', user);
+        navigate('/');
       })
       .catch(error => {
         // If error navigate to login page
         navigate('/login');
       });
-
-    navigate('/');
   };
 
   return (
