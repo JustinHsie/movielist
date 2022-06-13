@@ -17,7 +17,7 @@ export default function SearchBar(props) {
     e.preventDefault();
 
     // GET request backend to make external API request
-    const res = await axios.get(`http://localhost:8001/search/?query=${query}`)
+    const res = await axios.get(`https://movielist-back.herokuapp.com/search/?query=${query}`)
 
     // Set results state
     props.setResults(res.data.query.results)

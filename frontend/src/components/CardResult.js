@@ -40,7 +40,7 @@ export default function CardResult(props) {
 
     // POST movie to backend
     axios
-      .post('http://localhost:8001/movies', movie, config)
+      .post('https://movielist-back.herokuapp.com/movies', movie, config)
       .then(res => {
         // Display success notification
         UIkit.notification({

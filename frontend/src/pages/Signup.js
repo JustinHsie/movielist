@@ -49,7 +49,7 @@ export default function Signup() {
     bodyFormData.append('password', password);
     axios({
       method: 'post',
-      url: 'http://localhost:8001/signup',
+      url: 'https://movielist-back.herokuapp.com/signup',
       data: bodyFormData,
       headers: { 'Content-Type': 'multipart/form-data' },
     })
@@ -79,11 +79,11 @@ export default function Signup() {
 
     // Send as form data
     const bodyFormData = new FormData();
-    bodyFormData.append('username', 'demo');
+    bodyFormData.append('username', 'Demo');
     bodyFormData.append('password', 123);
     axios({
       method: 'post',
-      url: 'http://localhost:8001/login',
+      url: 'https://movielist-back.herokuapp.com/login',
       data: bodyFormData,
       headers: { 'Content-Type': 'multipart/form-data' },
     })

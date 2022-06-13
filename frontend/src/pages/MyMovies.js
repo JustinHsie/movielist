@@ -52,7 +52,7 @@ export default function MyMovies(props) {
   const fetchMovies = () => {
     // Fetch movies from backend
     axios
-      .get('http://localhost:8001/movies', config)
+      .get('https://movielist-back.herokuapp.com/movies', config)
       .then(res => {
         // Sort movies then set to frontend
         let sortedMovies = sort(res.data);
