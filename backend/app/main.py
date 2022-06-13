@@ -46,7 +46,7 @@ app.include_router(router)
 BACKEND_CORS_ORIGINS = [
         "http://localhost:3000",
         "http://localhost:8001",
-        "http://my-movielist-app.herokuapp.com",
+        "https://my-movielist-app.herokuapp.com",
         ]
 
 # Set all CORS enabled origins
