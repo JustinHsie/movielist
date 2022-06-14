@@ -3,6 +3,8 @@ To check out the app, please visit: https://my-movielist-app.herokuapp.com/
 
 This is an original app, not from a tutorial or class.
 
+![alt text](https://github.com/JustinHsie/movielist/blob/main/movielist.png)
+
 ### Usage
 - Users can search for a movie, then add it to their list with their personal rating.
 - The movies will be displayed in their list with a full poster image, title, and rating.
