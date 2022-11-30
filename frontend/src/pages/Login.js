@@ -31,7 +31,7 @@ export default function Login() {
     e.preventDefault();
 
     // Error handling empty fields
-    if (username == '' || password == '') {
+    if (username === '' || password === '') {
       // Display error notification
       UIkit.notification({
         message: 'Username or password cannot be empty',

@@ -32,7 +32,7 @@ export default function Signup() {
     e.preventDefault();
 
     // Error handling empty fields
-    if (username == '' || password == '') {
+    if (username === '' || password === '') {
       // Display error notification
       UIkit.notification({
         message: 'Username or password cannot be empty',
